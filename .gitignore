@@ -1,0 +1,9 @@
+# Generated analysis results and scheduler logs
+/logs/
+/output/
+
+# Keep the repository limited to scripts and repository metadata
+/*
+!/.gitignore
+!/scripts/
+!/scripts/**
