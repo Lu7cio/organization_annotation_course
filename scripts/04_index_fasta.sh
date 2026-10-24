@@ -8,10 +8,12 @@
 #SBATCH --output=/data/users/mkummer/organization_annotation_course/logs/index_fasta/%x_%j.out
 #SBATCH --error=/data/users/mkummer/organization_annotation_course/logs/index_fasta/%x_%j.err
 
+# Define working directory and input/output file paths
 SIF_PATH="/containers/apptainer/bwa_0.7.19_samtools_1.21.sif"
 WORKDIR="/data/users/mkummer/organization_annotation_course"
 FASTA="$WORKDIR/output/EDTA/assembly.fasta"
 
+# Create index for the FASTA file using samtools faidx
 apptainer exec \
   --bind "$WORKDIR:$WORKDIR" \
   --bind "/data/:/data" \

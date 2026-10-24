@@ -11,9 +11,12 @@ library(cowplot)
 #-------------------------------------------------
 # Input files (edit to match your data raw LTR GFF and TEsorter classification output)
 #-------------------------------------------------
-gff_file <- "/data/users/mkummer/organization_annotation_course/output/EDTA/assembly.fasta.mod.EDTA.raw/assembly.fasta.mod.LTR.intact.raw.gff3"
-cls_file <- "/data/users/mkummer/organization_annotation_course/output/LTR_full_length/intact_LTR.fa.rexdb-plant.cls.tsv"
+gff_file <- "~/Desktop/Uni_Master/Course_Documents/3. Semester/Organization_and_Annotation/Weeks_1-2_Transposable_Element Annotation_and_Classification/assembly.fasta.mod.LTR.intact.raw.gff3"
+cls_file <- "~/Desktop/Uni_Master/Course_Documents/3. Semester/Organization_and_Annotation/Weeks_1-2_Transposable_Element Annotation_and_Classification/intact_LTR.fa.rexdb-plant.cls.tsv"
 # Run this script in output/LTR_full_length after TEsorter on intact LTR elements.
+
+#Set working_dir to save plots
+setwd("~/Desktop/Uni_Master/Course_Documents/3. Semester/Organization_and_Annotation/Weeks_1-2_Transposable_Element Annotation_and_Classification")
 #-------------------------------------------------
 # Read and preprocess input data
 #-------------------------------------------------

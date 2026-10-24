@@ -6,7 +6,7 @@ library(data.table)
 
 # get data from parameter
 
-data <- "assembly.fasta.mod.EDTA.anno/assembly.fasta.mod.out.landscape.Div.Rname.tab"
+data <- "~/Desktop/3. Semester/Organization_and_Annotation/Weeks_1-2_Transposable_Element Annotation_and_Classification/assembly.fasta.mod.EDTA.RM.nonzero.out.landscape.Div.Rname.tab"
 
 rep_table <- fread(data, header = FALSE, sep = "\t")
 rep_table %>% head()
@@ -36,21 +36,27 @@ rep_table.m$distance <- as.numeric(rep_table.m$variable) / 100 # as it is percen
 # Question:
 # rep_table.m$age <- ??? # Calculate using the substitution rate and the formula provided in the tutorial
 
+# Brassicaceae synonymous substitution rate (substitutions/site/year)
+substitution_rate <- 8.22e-9
+
+# T = K / (2r), where K is sequence divergence as a fraction
+rep_table.m$age_mya <- rep_table.m$distance /
+  (2 * substitution_rate) / 1e6
 
 # options(scipen = 999)
 
 # remove helitrons as EDTA is not able to annotate them properly (https://github.com/oushujun/EDTA/wiki/Making-sense-of-EDTA-usage-and-outputs---Q&A)
 rep_table.m <- rep_table.m %>% filter(fam != "DNA/Helitron")
 
-ggplot(rep_table.m, aes(fill = fam, x = distance, weight = value / 1000000)) +
+ggplot(rep_table.m, aes(fill = fam, x = age_mya, weight = value / 1000000)) +
   geom_bar() +
   cowplot::theme_cowplot() +
   scale_fill_brewer(palette = "Paired") +
-  xlab("Distance") +
+  xlab("Estimated insertion age (million years)") +
   ylab("Sequence (Mbp)") +
   theme(axis.text.x = element_text(angle = 90, vjust = 1, size = 9, hjust = 1), plot.title = element_text(hjust = 0.5))
 
-ggsave(filename = "plots/output.pdf", width = 10, height = 5, useDingbats = F)
+ggsave(filename = "~/Desktop/3. Semester/Organization_and_Annotation/Weeks_1-2_Transposable_Element Annotation_and_Classification/plots/output_with_dating.pdf", width = 10, height = 5, useDingbats = F)
 
 
 
