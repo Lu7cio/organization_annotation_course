@@ -24,8 +24,10 @@ The following wokflwo order of the scripts was used to annotate the genome and c
 1. builds a TE library and annotates the genome with EDTA;
 2. classifies intact LTR retrotransposons with TEsorter;
 3. extracts and classifies Copia and Gypsy sequences;
-4. summarizes TE clade abundance and insertion-age distributions; and
-5. produces LTR identity and genome-wide TE-density plots.
+4. summarizes TE clade abundance and insertion-age distributions;
+5. produces LTR identity and genome-wide TE-density plots;
+6. annotates genes with MAKER; and
+7. incorporates InterProScan results and evaluates annotation quality.
 
 
 ## Folder structure
@@ -45,9 +47,20 @@ The following wokflwo order of the scripts was used to annotate the genome and c
 │   ├── 05_run_parseRM.sh
 │   ├── 05-parseRM.pl
 │   ├── 06-plot_div.R
-│   └── XX-run_maker.sh
+│   ├── 07-run_maker.sh
+│   ├── 08_merged_gff.sh
+│   ├── 09_rename_Genes_Transcripts.sh
+│   ├── 10_InterProScan.sh
+│   ├── 11_InterProScan_incorparation_GFF3.sh
+│   ├── 12_examine_AED_values.sh
+│   ├── 13_plot_AED.R
+│   ├── 14_filter_gff_quality.sh
+│   ├── 15_filter_gff_gene_features.sh
+│   ├── 16_extract_filtered_sequences copy.sh
+│   ├── 17_extract_longest.sh
+│   ├── 18_BUSCO_quality.sh
+│   ├── 19_AGAT_annotation_statistics.sh
+│   └── 20_pfam_aed_summary.sh
 ```
-
-
 
 
