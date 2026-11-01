@@ -7,6 +7,11 @@ library(ComplexHeatmap)
 gff_file <- "assembly.fasta.mod.EDTA.TEanno.gff3"
 gff_data <- read.table(gff_file, header = FALSE, sep = "\t", stringsAsFactors = FALSE)
 
+# Load the TE annotation from Maker
+maker_gff <- "~/Desktop/3. Semester/Organization_and_Annotation/Weeks_3-4/filtered.genes.renamed.gff3"
+maker_data <- read.table(maker_gff, header = FALSE, sep = "\t", stringsAsFactors = FALSE,
+                         quote = "", comment.char = "#", fill = TRUE)
+
 # Check the superfamilies present in the GFF3 file, and their counts
 gff_data$V3 %>% table()
 
@@ -40,6 +45,16 @@ filter_superfamily <- function(gff_data, superfamily, custom_ideogram) {
     return(filtered_data)
 }
 
+# Extract genes
+genes <- filter_superfamily(maker_data, "gene", custom_ideogram)
+
+# All TEs combined 
+all_te <- gff_data %>%
+  filter(!V3 %in% c("repeat_region", "target_site_duplication", "long_terminal_repeat")) %>%
+  mutate(chrom = V1, start = V4, end = V5, strand = V6) %>%
+  select(chrom, start, end, strand) %>%
+  filter(chrom %in% custom_ideogram$chr)
+
 pdf("02-TE_density.pdf", width = 10, height = 10)
 gaps <- c(rep(1, length(custom_ideogram$chr) - 1), 5) # Add a gap between scaffolds, more gap for the last scaffold
 circos.par(start.degree = 90, gap.after = 1, track.margin = c(0, 0), gap.degree = gaps)
@@ -49,16 +64,16 @@ circos.genomicInitialize(custom_ideogram)
 # Plot te density
 circos.genomicDensity(filter_superfamily(gff_data, "Gypsy_LTR_retrotransposon", custom_ideogram), count_by = "number", col = "darkgreen", track.height = 0.07, window.size = 1e5)
 circos.genomicDensity(filter_superfamily(gff_data, "Copia_LTR_retrotransposon", custom_ideogram), count_by = "number", col = "darkred", track.height = 0.07, window.size = 1e5)
+circos.genomicDensity(genes, count_by = "number", col = "steelblue", track.height = 0.07, window.size = 1e5)
+circos.genomicDensity(all_te, count_by = "number", col = "grey30", track.height = 0.07, window.size = 1e5)
 circos.clear()
 
 lgd <- Legend(
-    title = "Superfamily", at = c("Gypsy_LTR_retrotransposon", "Copia_LTR_retrotransposon"),
-    legend_gp = gpar(fill = c("darkgreen", "darkred"))
-)
+    title = "Superfamily", at = c("Genes", "Gypsy", "Copia", "All TEs"),
+    legend_gp = gpar(fill = c("steelblue", "darkgreen", "darkred", "grey30")))
 draw(lgd, x = unit(8, "cm"), y = unit(10, "cm"), just = c("center"))
 
 dev.off()
-
 
 # Now plot all your most abundant TE superfamilies in one plot
 

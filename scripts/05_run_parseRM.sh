@@ -24,5 +24,3 @@ apptainer exec \
     -i "$INPUT" \
     --l 50,1 \
     -v
-
-
