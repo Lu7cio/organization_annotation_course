@@ -14,7 +14,7 @@ elements (TEs) and the classification of intact LTR retrotransposons.
 
 The analysis was performed on the cluster using the numbered scripts in
 `scripts/`. Shell scripts were submitted with `sbatch`. The generated files are
-stored in `output/`, and SLURM logs are stored in `logs/`.
+stored in `output/`, and SLURM logs are stored in `logs/`. In `results/`, the final results/plots, which were used in the report are stored.
 
 The workflow follows these steps:
 
