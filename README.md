@@ -10,24 +10,28 @@ The goal of this course project was to annotate the genome of the plant
 species *Arabidopsis thaliana* accession Etna-2, with a focus on transposable
 elements (TEs) and the classification of intact LTR retrotransposons.
 
-The course examines the main evolutionary processes shaping the organization
-of plant and animal genomes. It compares and applies complementary approaches
-to characterize gene models and transposable elements in model and non-model
-organisms.
+## Workflow overview
 
-## Overview workflow
+The analysis was performed on the cluster using the numbered scripts in
+`scripts/`. Shell scripts were submitted with `sbatch`; generated files are
+stored in `output/`, and SLURM logs are stored in `logs/`.
 
-The bash scirpts were submitted on the cluster with sbatch myscript.sh.
+The workflow follows these steps:
 
-The following wokflwo order of the scripts was used to annotate the genome and classify intact LTR retrotransposons:
-
-1. builds a TE library and annotates the genome with EDTA;
-2. classifies intact LTR retrotransposons with TEsorter;
-3. extracts and classifies Copia and Gypsy sequences;
-4. summarizes TE clade abundance and insertion-age distributions;
-5. produces LTR identity and genome-wide TE-density plots;
-6. annotates genes with MAKER; and
-7. incorporates InterProScan results and evaluates annotation quality.
+1. Build a transposable-element library and annotate the genome with EDTA.
+2. Classify intact LTR retrotransposons with TEsorter.
+3. Extract and classify Copia and Gypsy sequences.
+4. Summarize TE clade abundance and insertion-age distributions.
+5. Generate LTR identity and genome-wide TE-density plots.
+6. Annotate genes with MAKER.
+7. Merge, rename, filter, and evaluate gene models using InterProScan, AED,
+   BUSCO, and AGAT analyses.
+8. Perform BLAST comparisons, add UniProt functions, and summarize the final
+   annotation.
+9. Prepare GENESPACE inputs and run comparative synteny analyses against
+   TAIR10 and the other accessions.
+10. Process the pangenome and generate customized two-genome and five-genome
+    riparian plots.
 
 
 ## Folder structure
@@ -60,7 +64,15 @@ The following wokflwo order of the scripts was used to annotate the genome and c
 │   ├── 17_extract_longest.sh
 │   ├── 18_BUSCO_quality.sh
 │   ├── 19_AGAT_annotation_statistics.sh
-│   └── 20_pfam_aed_summary.sh
+│   ├── 20_pfam_aed_summary.sh
+│   ├── 21_blast_comparisons.sh
+│   ├── 22_add_UniProt_functions.sh
+│   ├── 23_summarize_annotation.sh
+│   ├── 24_prepare_genspace_input.sh
+│   ├── 25_genespace.R
+│   ├── 26_run_genespace.sh
+│   ├── 27_process_pangenome.R
+│   ├── 28_run_process_pangenome.sh
+│   ├── 29_plot_riparian.R
+│   └── 30_run_plot_riparian.sh
 ```
-
-
