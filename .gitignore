@@ -1,3 +1,8 @@
-# Generated analysis results and scheduler logs
+#gitignore 
 /logs/
 /output/
+/Rplots.pdf
+/maker_bopts.ctl
+/maker_evm.ctl
+/maker_exe.ctl
+/maker_opts.ctl
